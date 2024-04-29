@@ -1,4 +1,4 @@
-package hu.nye.progTech.wumpus;
+package hu.nye.progKor.movieCatalog;
 
 public class Main {
     public static void main(String[] args) {
