@@ -20,6 +20,7 @@ public class MovieService implements MovieServiceInterface {
     @Override
     public MovieEntity saveMovie(MovieRequest movieRequest) {
         MovieEntity movieEntity = MovieEntity.builder()
+                .title(movieRequest.getTitle())
                 .directorName(movieRequest.getDirectorName())
                 .movieRate(movieRequest.getMovieRate())
                 .releasedYear(movieRequest.getReleasedYear())
@@ -41,6 +42,7 @@ public class MovieService implements MovieServiceInterface {
     @SneakyThrows
     public MovieEntity updateMovie(Long id, MovieRequest movieRequest) {
         MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(MovieNotFoundException::new);
+            movieEntity.setTitle(movieRequest.getTitle());
             movieEntity.setDirectorName(movieRequest.getDirectorName());
             movieEntity.setMovieRate(movieRequest.getMovieRate());
             movieEntity.setReleasedYear(movieRequest.getReleasedYear());
