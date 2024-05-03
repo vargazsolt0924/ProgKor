@@ -107,7 +107,7 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <includes>
-                       <include>**/MovieServiceTest</include>
+                        <include>**/MovieServiceTest</include>
                     </includes>
                 </configuration>
             </plugin>
