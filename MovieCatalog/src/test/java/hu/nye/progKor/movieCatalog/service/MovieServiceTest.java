@@ -4,27 +4,24 @@ import hu.nye.progKor.movieCatalog.entity.MovieEntity;
 import hu.nye.progKor.movieCatalog.exception.MovieNotFoundException;
 import hu.nye.progKor.movieCatalog.repository.MovieRepositoryInterface;
 import hu.nye.progKor.movieCatalog.request.MovieRequest;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class MovieServiceTest {
 
     @InjectMocks
@@ -33,9 +30,9 @@ public class MovieServiceTest {
     @Mock
     private MovieRepositoryInterface movieRepositoryInterface;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -111,15 +108,14 @@ public class MovieServiceTest {
         verify(movieRepositoryInterface).findAllMoviesByMovieRate(movieRate);
     }
 
-    @Test(expected = MovieNotFoundException.class)
+    @Test
     public void getMovieByIdShouldThrowMovieNotFoundExceptionWhenMovieNotFound() {
         // GIVEN
         Long id = 1L;
         when(movieRepositoryInterface.findById(id)).thenReturn(Optional.empty());
 
-        // WHEN - THEN
-        movieService.getMovieById(id);
-
+        // WHEN & THEN
+        assertThrows(MovieNotFoundException.class, () -> movieService.getMovieById(id));
     }
 
     @Test
@@ -134,7 +130,6 @@ public class MovieServiceTest {
         // WHEN & THEN
         assertThrows(MovieNotFoundException.class, () -> movieService.updateMovie(id, movieRequest));
     }
-
 
     @Test
     public void getMovieByIdShouldThrowExceptionWhenRepositoryThrowsException() {
@@ -172,7 +167,6 @@ public class MovieServiceTest {
         assertThrows(IllegalArgumentException.class, () -> movieService.saveMovie(movieRequest));
     }
 
-
     @Test
     public void updateMovieShouldThrowExceptionWhenInvalidParametersAreProvided() {
         // GIVEN
@@ -207,4 +201,3 @@ public class MovieServiceTest {
                 .build();
     }
 }
-
