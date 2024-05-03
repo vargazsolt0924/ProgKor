@@ -9,7 +9,8 @@ public class Movie {
     private String description;
     private int lengthInSeconds;
 
-    public Movie(String description, String directorName, int lengthInSeconds, int movieRate, String movieType, int releasedYear, String title) {
+    public Movie(String description, String directorName, int lengthInSeconds, int movieRate,
+                 String movieType, int releasedYear, String title) {
         this.description = description;
         this.directorName = directorName;
         this.lengthInSeconds = lengthInSeconds;

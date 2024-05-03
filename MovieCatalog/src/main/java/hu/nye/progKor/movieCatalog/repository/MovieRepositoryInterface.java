@@ -1,10 +1,10 @@
 package hu.nye.progKor.movieCatalog.repository;
 
+import java.util.List;
+
 import hu.nye.progKor.movieCatalog.entity.MovieEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface MovieRepositoryInterface extends CrudRepository<MovieEntity, Long> {

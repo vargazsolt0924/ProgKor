@@ -1,5 +1,7 @@
 package hu.nye.progKor.movieCatalog.service;
 
+import java.util.List;
+
 import hu.nye.progKor.movieCatalog.entity.MovieEntity;
 import hu.nye.progKor.movieCatalog.exception.MovieNotFoundException;
 import hu.nye.progKor.movieCatalog.repository.MovieRepositoryInterface;
@@ -7,9 +9,6 @@ import hu.nye.progKor.movieCatalog.request.MovieRequest;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 
 @Service
 public class MovieService implements MovieServiceInterface {
@@ -19,6 +18,9 @@ public class MovieService implements MovieServiceInterface {
 
     @Override
     public MovieEntity saveMovie(MovieRequest movieRequest) {
+        if (movieRequest == null) {
+            throw new IllegalArgumentException("Movie request cannot be null");
+        }
         MovieEntity movieEntity = MovieEntity.builder()
                 .title(movieRequest.getTitle())
                 .directorName(movieRequest.getDirectorName())
@@ -41,6 +43,9 @@ public class MovieService implements MovieServiceInterface {
     @Override
     @SneakyThrows
     public MovieEntity updateMovie(Long id, MovieRequest movieRequest) {
+        if (id == null || movieRequest == null) {
+            throw new IllegalArgumentException("ID or movie request cannot be null");
+        }
         MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(MovieNotFoundException::new);
             movieEntity.setTitle(movieRequest.getTitle());
             movieEntity.setDirectorName(movieRequest.getDirectorName());

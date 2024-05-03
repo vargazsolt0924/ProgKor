@@ -1,4 +1,4 @@
-package hu.nye.progKor.movieCatalog.Configuration;
+package hu.nye.progKor.movieCatalog.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;

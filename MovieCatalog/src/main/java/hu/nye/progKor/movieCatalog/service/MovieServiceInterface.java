@@ -1,9 +1,9 @@
 package hu.nye.progKor.movieCatalog.service;
 
+import java.util.List;
+
 import hu.nye.progKor.movieCatalog.entity.MovieEntity;
 import hu.nye.progKor.movieCatalog.request.MovieRequest;
-
-import java.util.List;
 
 public interface MovieServiceInterface {
 
