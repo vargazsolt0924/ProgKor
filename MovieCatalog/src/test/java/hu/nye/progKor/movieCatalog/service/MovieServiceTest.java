@@ -6,6 +6,7 @@ import hu.nye.progKor.movieCatalog.repository.MovieRepositoryInterface;
 import hu.nye.progKor.movieCatalog.request.MovieRequest;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(MockitoJUnitRunner.class)
 public class MovieServiceTest {
 
     @InjectMocks
