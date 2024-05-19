@@ -67,5 +67,20 @@ public class MovieService implements MovieServiceInterface {
         return movieRepository.findAllMoviesByMovieRate(movieRate);
     }
 
+    @Override
+    public List<MovieEntity> findAllMoviesByReleasedYear(int releasedYear) {
+        return movieRepository.findAllMoviesByReleasedYear(releasedYear);
+    }
+
+    @Override
+    public List<MovieEntity> findAllMoviesByMovieType(String movieType) {
+        return movieRepository.findAllMoviesByMovieType(movieType);
+    }
+
+    @Override
+    public List<MovieEntity> findAllMoviesByLengthInSeconds(int lengthInSeconds) {
+        return movieRepository.findAllMoviesByLengthInSeconds(lengthInSeconds);
+    }
+
 
 }

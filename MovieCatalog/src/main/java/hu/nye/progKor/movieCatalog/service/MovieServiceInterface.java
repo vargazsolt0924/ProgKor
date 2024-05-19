@@ -17,4 +17,10 @@ public interface MovieServiceInterface {
 
     List<MovieEntity> findAllMoviesByMovieRate(int movieRate);
 
+    List<MovieEntity> findAllMoviesByReleasedYear(int releasedYear);
+
+    List<MovieEntity> findAllMoviesByMovieType(String movieType);
+
+    List<MovieEntity> findAllMoviesByLengthInSeconds(int lengthInSeconds);
+
 }

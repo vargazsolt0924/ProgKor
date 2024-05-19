@@ -45,4 +45,19 @@ public class MovieController {
     public List<MovieEntity> getAllMovieByMovieRate(@PathVariable("movieRate") int movieRate) {
         return movieService.findAllMoviesByMovieRate(movieRate);
     }
+
+    @GetMapping("/movies/releasedYear/{releasedYear}")
+    public List<MovieEntity> findAllMoviesByReleasedYear(@PathVariable("releasedYear") int releasedYear) {
+        return movieService.findAllMoviesByReleasedYear(releasedYear);
+    }
+
+    @GetMapping("/movies/movieType/{movieType}")
+    public List<MovieEntity> findAllMoviesByMovieType(@PathVariable("movieType") String movieType) {
+        return movieService.findAllMoviesByMovieType(movieType);
+    }
+
+    @GetMapping("/movies/lengthInSeconds/{lengthInSeconds}")
+    public List<MovieEntity> findAllMoviesByLengthInSeconds(@PathVariable("lengthInSeconds") int lengthInSeconds) {
+        return movieService.findAllMoviesByLengthInSeconds(lengthInSeconds);
+    }
 }
