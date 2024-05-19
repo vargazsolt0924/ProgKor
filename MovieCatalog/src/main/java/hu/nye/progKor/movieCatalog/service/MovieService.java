@@ -47,13 +47,13 @@ public class MovieService implements MovieServiceInterface {
             throw new IllegalArgumentException("ID or movie request cannot be null");
         }
         MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(MovieNotFoundException::new);
-            movieEntity.setTitle(movieRequest.getTitle());
-            movieEntity.setDirectorName(movieRequest.getDirectorName());
-            movieEntity.setMovieRate(movieRequest.getMovieRate());
-            movieEntity.setReleasedYear(movieRequest.getReleasedYear());
-            movieEntity.setMovieType(movieRequest.getMovieType());
-            movieEntity.setDescription(movieRequest.getDescription());
-            movieEntity.setLengthInSeconds(movieRequest.getLengthInSeconds());
+        movieEntity.setTitle(movieRequest.getTitle());
+        movieEntity.setDirectorName(movieRequest.getDirectorName());
+        movieEntity.setMovieRate(movieRequest.getMovieRate());
+        movieEntity.setReleasedYear(movieRequest.getReleasedYear());
+        movieEntity.setMovieType(movieRequest.getMovieType());
+        movieEntity.setDescription(movieRequest.getDescription());
+        movieEntity.setLengthInSeconds(movieRequest.getLengthInSeconds());
         return movieRepository.save(movieEntity);
     }
 

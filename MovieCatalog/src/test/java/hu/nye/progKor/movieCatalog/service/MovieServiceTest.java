@@ -97,7 +97,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void findAllMoviesByMovieRateShouldReallyFindAllTheMovieByMovieRate() {
+    public void findAllMoviesByMovieRateShouldReallyFindAllTheMoviesByMovieRate() {
         // GIVEN
         int movieRate = 5;
 
@@ -112,9 +112,11 @@ public class MovieServiceTest {
     public void getMovieByIdShouldThrowMovieNotFoundExceptionWhenMovieNotFound() {
         // GIVEN
         Long id = 1L;
+
+        // WHEN
         when(movieRepositoryInterface.findById(id)).thenReturn(Optional.empty());
 
-        // WHEN & THEN
+        // THEN
         assertThrows(MovieNotFoundException.class, () -> movieService.getMovieById(id));
     }
 
@@ -124,10 +126,10 @@ public class MovieServiceTest {
         Long id = 1L;
         MovieRequest movieRequest = createMovieRequest();
 
-        // Mock the repository to return an empty Optional
+        // WHEN
         when(movieRepositoryInterface.findById(id)).thenReturn(Optional.empty());
 
-        // WHEN & THEN
+        // THEN
         assertThrows(MovieNotFoundException.class, () -> movieService.updateMovie(id, movieRequest));
     }
 
@@ -146,12 +148,11 @@ public class MovieServiceTest {
     public void findAllMoviesByMovieRateShouldReturnCorrectNumberOfMovies() {
         // GIVEN
         int movieRate = 5;
-        List<MovieEntity> expectedMovies = new ArrayList<>(); // Populate this with expected movies
-
-        // Mock the repository to return the expected list
-        when(movieRepositoryInterface.findAllMoviesByMovieRate(movieRate)).thenReturn(expectedMovies);
+        List<MovieEntity> expectedMovies = new ArrayList<>();
 
         // WHEN
+        when(movieRepositoryInterface.findAllMoviesByMovieRate(movieRate)).thenReturn(expectedMovies);
+
         List<MovieEntity> result = movieService.findAllMoviesByMovieRate(movieRate);
 
         // THEN
@@ -168,14 +169,105 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void updateMovieShouldThrowExceptionWhenInvalidParametersAreProvided() {
+    public void updateMovieShouldThrowExceptionWhenInvalidIdIsProvided() {
         // GIVEN
-        Long invalidId = null;
-        MovieRequest movieRequest = new MovieRequest(); // Assuming this is a valid constructor
+        MovieRequest movieRequest = new MovieRequest();
 
         // WHEN & THEN
-        assertThrows(IllegalArgumentException.class, () -> movieService.updateMovie(invalidId, movieRequest));
+        assertThrows(IllegalArgumentException.class, () -> movieService.updateMovie(null, movieRequest));
     }
+
+    @Test
+    public void updateMovieShouldThrowExceptionWhenInvalidMovieRequestIsProvided() {
+        // GIVEN
+        Long id = 5L;
+
+        // WHEN & THEN
+        assertThrows(IllegalArgumentException.class, () -> movieService.updateMovie(id, null));
+    }
+
+    @Test
+    public void findAllMoviesByReleasedYearShouldReallyFindAllTheMoviesByReleasedYear() {
+        // GIVEN
+        int releasedYear = 2010;
+
+        // WHEN
+        movieService.findAllMoviesByReleasedYear(releasedYear);
+
+        // THEN
+        verify(movieRepositoryInterface).findAllMoviesByReleasedYear(releasedYear);
+    }
+
+
+    @Test
+    public void findAllMoviesByReleasedYearShouldReturnCorrectNumberOfMovies() {
+        // GIVEN
+        int releasedYear = 2010;
+        List<MovieEntity> expectedMovies = new ArrayList<>();
+
+        // WHEN
+        when(movieRepositoryInterface.findAllMoviesByReleasedYear(releasedYear)).thenReturn(expectedMovies);
+
+        List<MovieEntity> result = movieService.findAllMoviesByReleasedYear(releasedYear);
+
+        // THEN
+        assertEquals(expectedMovies.size(), result.size());
+    }
+
+    @Test
+    public void findAllMoviesByMovieTypeShouldReallyFindAllTheMoviesByMovieType() {
+        // GIVEN
+        String movieType = "adventure";
+
+        // WHEN
+        movieService.findAllMoviesByMovieType(movieType);
+
+        // THEN
+        verify(movieRepositoryInterface).findAllMoviesByMovieType(movieType);
+    }
+
+    @Test
+    public void findAllMoviesByMovieTypeShouldReturnCorrectNumberOfMovies() {
+        // GIVEN
+        String movieType = "adventure";
+        List<MovieEntity> expectedMovies = new ArrayList<>();
+
+        // WHEN
+        when(movieRepositoryInterface.findAllMoviesByMovieType(movieType)).thenReturn(expectedMovies);
+
+        List<MovieEntity> result = movieService.findAllMoviesByMovieType(movieType);
+
+        // THEN
+        assertEquals(expectedMovies.size(), result.size());
+    }
+
+    @Test
+    public void findAllMoviesByLengthInSecondsShouldReallyFindAllTheMovieByLengthInSeconds() {
+        // GIVEN
+        int lengthInSeconds = 160;
+
+        // WHEN
+        movieService.findAllMoviesByLengthInSeconds(lengthInSeconds);
+
+        // THEN
+        verify(movieRepositoryInterface).findAllMoviesByLengthInSeconds(lengthInSeconds);
+    }
+
+    @Test
+    public void findAllMoviesByLengthInSecondsShouldReturnCorrectNumberOfMovies() {
+        // GIVEN
+        int lengthInSeconds = 160;
+        List<MovieEntity> expectedMovies = new ArrayList<>();
+
+        // WHEN
+        when(movieRepositoryInterface.findAllMoviesByLengthInSeconds(lengthInSeconds)).thenReturn(expectedMovies);
+
+        List<MovieEntity> result = movieService.findAllMoviesByLengthInSeconds(lengthInSeconds);
+
+        // THEN
+        assertEquals(expectedMovies.size(), result.size());
+    }
+
 
     private MovieRequest createMovieRequest() {
         return MovieRequest.builder()
@@ -200,4 +292,5 @@ public class MovieServiceTest {
                 .lengthInSeconds(movieRequest.getLengthInSeconds())
                 .build();
     }
+
 }
