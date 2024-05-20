@@ -231,7 +231,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/epam-nye-cooperation/epam-nye-progkor-music-catalog</url>
+            <url>https://maven.pkg.github.com/vargazsolt0924/ProgKor</url>
         </repository>
     </distributionManagement>
 </project>
