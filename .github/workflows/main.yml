@@ -11,34 +11,21 @@ jobs:
     permissions:
       contents: read
       packages: write
-    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-
-      - name: Set up GitHub Packages Maven Repository
-        run: |
-          mkdir -p $HOME/.m2
-          echo "<settings>
-                  <servers>
-                    <server>
-                      <id>github</id>
-                      <username>${{ github.actor }}</username>
-                      <password>${{ secrets.GITHUB_TOKEN }}</password>
-                    </server>
-                  </servers>
-                </settings>" > $HOME/.m2/settings.xml
-
       - name: Build and publish with Maven
         run: |
           cd MovieCatalog 
+          version="${{github.run_number}}"
+          echo "ARTIFACT_VERSION=$version" >> $GITHUB_ENV
           mvn -B deploy --file pom.xml
+          cp "target/MovieCatalog-0.0.1-SNAPSHOT.jar" "target/MovieCatalog.jar"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
