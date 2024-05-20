@@ -20,15 +20,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+      - name: Configure Maven settings
+        run: |
+          mkdir -p ~/.m2
+          echo "<settings><servers><server><id>github</id><username>${{ github.actor }}</username><password>${{ secrets.GH_TOKEN }}</password></server></servers></settings>" > ~/.m2/settings.xml
       - name: Build and publish with Maven
         run: |
-          # Versioning setup
           version_prefix=`mvn help:evaluate -Dexpression=project.version --quiet -DforceStdout --file MovieCatalog/pom.xml | awk -F. '{print $1"."$2}'`
-          version="$version_prefix.${{github.run_number}}"
+          version="$version_prefix.${{ github.run_number }}"
           echo "Setting artifact version to $version"
-          # Push version to env
           echo "ARTIFACT_VERSION=$version" >> $GITHUB_ENV
-          # Overwrite local artifact version
           mvn -B versions:set -DnewVersion="$version" --file MovieCatalog/pom.xml
           mvn -B deploy --file MovieCatalog/pom.xml
           cp "MovieCatalog/target/MovieCatalog-${version}.jar" "MovieCatalog/target/MovieCatalog.jar"
