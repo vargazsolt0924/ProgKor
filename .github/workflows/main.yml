@@ -22,12 +22,13 @@ jobs:
           cache: maven
       - name: Build and publish with Maven
         run: |
-          version_prefix=`mvn help:evaluate -Dexpression=project.version --quiet -DforceStdout --file MovieCatalog/pom.xml | awk -F. '{print $1"."$2}'`
-          version="$version_prefix.${{ github.run_number }}"
+          cd MovieCatalog 
+          version_prefix=$(mvn help:evaluate -Dexpression=project.version --quiet -DforceStdout)
+          version="${version_prefix}.${{ github.run_number }}"
           echo "Setting artifact version to $version"
           echo "ARTIFACT_VERSION=$version" >> $GITHUB_ENV
-          mvn -B versions:set -DnewVersion="$version" --file MovieCatalog/pom.xml
-          mvn -B deploy --file MovieCatalog/pom.xml
-          cp "MovieCatalog/target/MovieCatalog-${version}.jar" "MovieCatalog/target/MovieCatalog.jar"
+          mvn -B versions:set -DnewVersion="$version"
+          mvn -B deploy
+          cp "target/MovieCatalog-${version}.jar" "target/MovieCatalog.jar"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
