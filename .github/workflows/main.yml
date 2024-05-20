@@ -32,4 +32,4 @@ jobs:
           mvn -B deploy --file MovieCatalog/pom.xml
           cp "MovieCatalog/target/MovieCatalog-${version}.jar" "MovieCatalog/target/MovieCatalog.jar"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
