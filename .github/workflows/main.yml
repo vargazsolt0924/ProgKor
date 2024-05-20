@@ -23,7 +23,7 @@ jobs:
       - name: Build and publish with Maven
         run: |
           cd MovieCatalog 
-          ersion="${{github.run_number}}"
+          version="${{github.run_number}}"
           echo "ARTIFACT_VERSION=$version" >> $GITHUB_ENV
           mvn -B deploy --file pom.xml
           cp "target/MovieCatalog-0.0.1-SNAPSHOT.jar" "target/MovieCatalog.jar"
