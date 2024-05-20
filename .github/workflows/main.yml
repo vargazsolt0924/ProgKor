@@ -23,15 +23,9 @@ jobs:
       - name: Build and publish with Maven
         run: |
           cd MovieCatalog 
-          # Versioning setup
-          version_prefix=`mvn help:evaluate -Dexpression=project.version --quiet -DforceStdout --file pom.xml | awk -F. '{print $1"."$2}'`
-          version="$version_prefix.${{github.run_number}}"
-          echo "Setting artifact version to $version"
-          # Push version to env
+          ersion="${{github.run_number}}"
           echo "ARTIFACT_VERSION=$version" >> $GITHUB_ENV
-          # Overwrite local artifact version
-          mvn -B versions:set -DnewVersion="$version" --file pom.xml
           mvn -B deploy --file pom.xml
-          cp "target/MovieCatalog-${version}.jar" "target/MovieCatalog.jar"
+          cp "target/MovieCatalog-0.0.1-SNAPSHOT.jar" "target/MovieCatalog.jar"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
