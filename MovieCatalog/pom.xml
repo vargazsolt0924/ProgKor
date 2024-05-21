@@ -209,7 +209,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/vargazsolt0924/ProgKor</url>
+            <url>https://maven.pkg.github.com/vargazsolt0924/progkor</url>
         </repository>
     </distributionManagement>
 </project>
