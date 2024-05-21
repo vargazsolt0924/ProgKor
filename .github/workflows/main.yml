@@ -35,15 +35,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@v2
-        with:
-          registry: ${{ env.DOCKER_REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GH_TOKEN }}
-
-      - name: Build and push Docker image
-        run: |
-          docker build ./spring-core -t ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/spring-core:${{ env.ARTIFACT_VERSION }}
-          docker push ${{ env.DOCKER_REGISTRY }}/${{ github.repository }}/spring-core:${{ env.ARTIFACT_VERSION }}
