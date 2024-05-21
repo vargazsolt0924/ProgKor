@@ -43,5 +43,5 @@ jobs:
           mvn versions:set -DnewVersion=$version
           mvn -B deploy --file pom.xml
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
