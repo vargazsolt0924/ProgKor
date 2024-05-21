@@ -26,19 +26,6 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.GH_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
-      - name: Set up Maven settings
-        run: |
-          mkdir -p ~/.m2
-          echo '<settings>\
-            <servers>\
-              <server>\
-                <id>github</id>\
-                <username>${env.GITHUB_ACTOR}</username>\
-                <password>${env.GITHUB_TOKEN}</password>\
-              </server>\
-            </servers>\
-          </settings>' > ~/.m2/settings.xml
-
       - name: Build and publish with Maven
         run: |
           cd MovieCatalog
