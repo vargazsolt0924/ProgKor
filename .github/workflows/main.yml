@@ -22,9 +22,18 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Configure Git for GitHub Packages
+      - name: Configure Maven settings
         run: |
-          git config --global url."https://${{ secrets.GH_TOKEN }}@github.com/".insteadOf "https://github.com/"
+          mkdir -p ~/.m2
+          echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+                  <servers>
+                    <server>
+                      <id>github</id>
+                      <username>${{ github.actor }}</username>
+                      <password>${{ secrets.GH_TOKEN }}</password>
+                    </server>
+                  </servers>
+                </settings>' > ~/.m2/settings.xml
 
       - name: Build and publish with Maven
         run: |
@@ -34,5 +43,5 @@ jobs:
           mvn versions:set -DnewVersion=$version
           mvn -B deploy --file pom.xml
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
