@@ -7,7 +7,7 @@
         <relativePath/>
     </parent>
     <groupId>hu.nye.progKor.movieCatalog</groupId>
-    <artifactId>MovieCatalog</artifactId>
+    <artifactId>moviecatalog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
