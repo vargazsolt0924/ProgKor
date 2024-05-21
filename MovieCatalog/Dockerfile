@@ -1,4 +1,4 @@
 FROM openjdk:17-jdk-alpine3.14
-COPY "./target/MovieCatalog.jar" "/app/MovieCatalog.jar"
+COPY "./target/moviecatalog.jar" "/app/moviecatalog.jar"
 EXPOSE 8080
-CMD [ "java", "-jar", "/app/music-catalog.jar" ]
+CMD [ "java", "-jar", "/app/moviecatalog.jar" ]
